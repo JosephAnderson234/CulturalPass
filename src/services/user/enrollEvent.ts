@@ -1,12 +1,9 @@
 "use client";
 
-import getServerAuthToken from "@src/utils/getServerAuthToken";
-
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 
-export const enrollEvent = async (eventId: string) => {
-    const token = await getServerAuthToken();
+export const enrollEvent = async (eventId: string, token: string) => {
     const res = await fetch(`${API_URL}/api/user/me/${eventId}/enroll`, {
         method: "POST",
         headers: {
