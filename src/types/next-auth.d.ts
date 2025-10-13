@@ -6,7 +6,8 @@ declare module "next-auth" {
         user: {
             id: string
             email: string
-            name: string
+            firstName: string
+            lastName: string
             role: string
         }
     }
@@ -15,7 +16,8 @@ declare module "next-auth" {
         id: string
         email: string
         accessToken: string
-        name: string
+        firstName: string
+        lastName: string
     }
 }
 

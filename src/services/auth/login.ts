@@ -1,0 +1,19 @@
+"use server";
+import { AuthResponse } from "@src/interfaces/auth/AuthResponse";
+import { LoginRequest } from "@src/interfaces/auth/LoginRequest";
+
+const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
+
+export const login = async (credentials: LoginRequest) => {
+
+    const response = await fetch(`${API_URL}/api/auth/login`, {
+        method: "POST",
+        body: JSON.stringify(credentials),
+    });
+
+    if (!response.ok) {
+        throw new Error("Login failed");
+    }
+
+    return response.json() as Promise<AuthResponse>;
+}
