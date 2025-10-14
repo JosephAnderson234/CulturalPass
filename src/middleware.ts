@@ -9,10 +9,11 @@ export async function middleware(request: NextRequest) {
     const isAuth = !!token
     const isAuthPage = request.nextUrl.pathname.startsWith('/auth')
     const isDashboardPage = request.nextUrl.pathname.startsWith('/dashboard')
-    const role = jwtDecode<TokenClaims>(token?.accessToken || '')?.role || 'USER'
+
     const isProfilePage = request.nextUrl.pathname.startsWith('/profile')
 
     if (isAuth) {
+        const role = jwtDecode<TokenClaims>(token?.accessToken || '')?.role || 'USER'
         // Si está autenticado y trata de acceder a la página de auth, redirige a dashboard
         if (isAuthPage) {
             return NextResponse.redirect(new URL('/dashboard', request.url))
