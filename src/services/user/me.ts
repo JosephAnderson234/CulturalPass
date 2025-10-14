@@ -1,4 +1,4 @@
-"use client";
+"use server";
 
 import { UserResponse } from "@src/interfaces/user/user";
 

@@ -17,6 +17,7 @@ export default function LoginForm() {
 
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/";
+    const error = searchParams.get("error");
 
     const onSubmit: SubmitHandler<LoginRequest> = (credentials) => {
         signIn("credentials", {
@@ -45,6 +46,7 @@ export default function LoginForm() {
             <div>
                 {errors.email && <span>El correo es obligatorio</span>}
                 {errors.password && <span>La contraseña es obligatoria</span>}
+                {error && <span className="text-red-500">Credenciales inválidas</span>}
             </div>
 
             <div className="text-white">
