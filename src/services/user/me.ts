@@ -1,6 +1,7 @@
 "use server";
 
 import { UserResponse } from "@src/interfaces/user/user";
+import { getTokenServerAction } from "@src/utils/jwt";
 
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
@@ -19,3 +20,10 @@ export const getUserProfile = async (token: string) => {
 
     return res.json() as Promise<UserResponse>;
 };
+
+export const getProfile = async () => {
+    const token = await getTokenServerAction();
+
+    const data = await  getUserProfile(token);
+    return data;
+}

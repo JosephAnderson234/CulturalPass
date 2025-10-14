@@ -35,10 +35,10 @@ export default function RegisterForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-row items-center p-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col md:flex-row items-center p-2">
 
             <div className="min-w-5/12">
-                <Image className="w-8/12 mx-auto" src={Logo} alt="Logo" priority />
+                <Image className="min-w-8/12 mx-auto p-3 md:p-0" src={Logo} alt="Logo" priority />
             </div>
 
             <div className="min-w-7/12 flex flex-col justify-center">
@@ -80,7 +80,7 @@ export default function RegisterForm() {
                     Ya tienes cuenta? <Link href={`/auth/login${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Inicia Sesión</Link>
                 </div>
 
-                <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl">Registrarse</button>
+                <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl cursor-pointer">Registrarse</button>
             </div>
 
 
