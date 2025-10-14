@@ -18,6 +18,7 @@ export const register = async (credentials: RegisterRequest ) => {
     if (!response.ok) {
         throw new Error("Registration failed");
     }
+    console.log("Registro exitoso:", response);
 
     return response.json() as Promise<AuthResponse>;
 }

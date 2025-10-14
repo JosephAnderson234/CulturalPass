@@ -7,6 +7,7 @@ import Link from "next/link";
 
 import Logo from "@src/assets/logo.png"
 import Image from 'next/image';
+import { register as registerService } from '@src/services/auth/register';
 
 export default function RegisterForm() {
     const {
@@ -19,9 +20,15 @@ export default function RegisterForm() {
     const callbackUrl = searchParams.get("callbackUrl") || "/";
     const error = searchParams.get("error");
 
-    const onSubmit: SubmitHandler<RegisterRequest> = (credentials) => {
+    const onSubmit: SubmitHandler<RegisterRequest> = async (dataForRegister) => {
+
+        await registerService(dataForRegister)
+
         signIn("credentials", {
-            ...credentials,
+            ...{
+                email: dataForRegister.email,
+                password: dataForRegister.password
+            },
             redirect: true,
             callbackUrl
         })
@@ -70,7 +77,7 @@ export default function RegisterForm() {
                 </div>
 
                 <div className="text-white text-center my-2">
-                    Ya tienes cuenta? <Link href="/auth/login">Inicia Sesión</Link>
+                    Ya tienes cuenta? <Link href={`/auth/login${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Inicia Sesión</Link>
                 </div>
 
                 <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl">Registrarse</button>

@@ -50,7 +50,7 @@ export default function LoginForm() {
             </div>
 
             <div className="text-white">
-                No tienes cuenta? <Link href="/auth/register">Regístrate</Link>
+                No tienes cuenta? <Link href={`/auth/register${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Regístrate</Link>
             </div>
 
             <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl">Iniciar Sesión</button>
