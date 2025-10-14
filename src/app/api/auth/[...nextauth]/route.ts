@@ -2,7 +2,7 @@
 import NextAuth, { NextAuthOptions } from "next-auth"
 import CredentialsProvider from "next-auth/providers/credentials"
 import { LoginRequest } from '@src/interfaces/auth/LoginRequest';
-import { jwtDecode } from "jwt-decode"
+import { jwtDecode } from "jwt-decode";
 import { login } from "@src/services/auth/login";
 import { getUserProfile } from "@src/services/user/me";
 
@@ -19,8 +19,6 @@ const authOptions: NextAuthOptions = {
             async authorize(credentials: LoginRequest | undefined) {
                 try {
                     if (!credentials) return null;
-
-
                     const response = await login({
                         email: credentials.email,
                         password: credentials.password
@@ -44,7 +42,6 @@ const authOptions: NextAuthOptions = {
     ],
     callbacks: {
         async jwt({ token, user }) {
-            // Primer login: copiar del user -> JWT (tipos estrictos)
             if (user) {
                 token.id = user.id
                 token.accessToken = user.accessToken
@@ -56,19 +53,34 @@ const authOptions: NextAuthOptions = {
         },
         async session({ session, token }) {
             let rol: string = "";
-            if (token.accessToken && typeof token.accessToken === 'string' && token.accessToken.split('.').length === 3) {
-                const decoded = jwtDecode(token.accessToken) as { rol?: string };
-                rol = decoded.rol || "";
+            try {
+                if (token?.accessToken && typeof token.accessToken === 'string') {
+                    const parts = token.accessToken.split('.')
+                    if (parts.length === 3) {
+                        // jwtDecode puede lanzar si el token está mal formado, así que lo envolvemos
+                        const decoded = jwtDecode(token.accessToken) as Record<string, unknown>
+                        // admitir tanto `rol` como `role` en el payload
+                        rol = (decoded.rol as string) || (decoded.role as string) || ""
+                    }
+                }
+
+                // Asignamos los campos de usuario de forma segura
+                session.user = {
+                    id: (token.id as string) || "",
+                    email: (token.email as string) || "",
+                    firstName: (token.firstName as string) || "",
+                    lastName: (token.lastName as string) || "",
+                    role: rol,
+                };
+
+                session.accessToken = (token.accessToken as string) || ""
+            } catch (err) {
+                // No queremos que una excepción aquí rompa la respuesta del endpoint
+                console.error('Error en session callback next-auth:', err)
+                // mantener session por defecto si ocurre un error
             }
-            session.user = {
-                id: token.id as string,
-                email: token.email as string,
-                firstName: token.firstName as string,
-                lastName: token.lastName as string,
-                role: rol,
-            };
-            session.accessToken = token.accessToken as string;
-            return session;
+
+            return session
         },
     },
     pages: {
