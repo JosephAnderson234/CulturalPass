@@ -1,6 +1,7 @@
 "use client";
 import { usePathname, useRouter, useSearchParams } from 'next/navigation';
 import { useDebouncedCallback } from 'use-debounce';
+import { SearchIcon } from '../lib/icons';
 
 const SearchSide = ({ placeholder }: { placeholder: string }) => {
     const searchParams = useSearchParams();
@@ -14,26 +15,26 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
         params.set('page', '1');
 
         if (term) {
-            params.set('product', term);
+            params.set('event', term);
         } else {
-            params.delete('product');
+            params.delete('event');
         }
         router.push(`${pathname}?${params.toString()}`);
     }, 300);
 
     return (
-        <div className="relative flex items-center justify-center p-3">
-            <label htmlFor="search" className="sr-only">
-                Search
-            </label>
+        <div className="relative flex items-center justify-center p-3 w-full max-w-lg">
             <input
-                className=" block w-11/12 md:w-9/12 rounded-md border border-background py-[9px] pl-10 text-sm outline-2 placeholder:text-foreground bg-background-little text-white p-1 text-center"
+                className="block w-full  rounded-xl pl-5 placeholder:text-black bg-background text-black p-3 text-left"
+                name='search'
                 placeholder={placeholder}
                 onChange={(e) => {
                     handleSearch(e.target.value);
                 }}
-                defaultValue={searchParams.get('product')?.toString()}
+                defaultValue={searchParams.get('event')?.toString()}
             />
+
+            <SearchIcon className="absolute right-6 h-9 text-background-secondary" />
 
         </div>
     );
