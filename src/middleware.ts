@@ -27,6 +27,9 @@ export async function middleware(request: NextRequest) {
             return NextResponse.redirect(new URL(redirectPath, request.url))
         }
 
+        if (role === 'ADMIN' && (isUserPage || isPublicPage) && !isAdminPage) {
+            return NextResponse.redirect(new URL('/dashboard', request.url))
+        }
 
         if (role === 'ADMIN' && isUserPage && !isPublicPage) {
             return NextResponse.redirect(new URL('/dashboard', request.url))
