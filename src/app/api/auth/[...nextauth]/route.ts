@@ -5,6 +5,7 @@ import { LoginRequest } from '@src/interfaces/auth/LoginRequest';
 import { jwtDecode } from "jwt-decode";
 import { login } from "@src/services/auth/login";
 import { getUserProfile } from "@src/services/user/me";
+import { UserRoles } from "@src/interfaces/auth/tokenClaims";
 
 
 
@@ -52,7 +53,7 @@ const authOptions: NextAuthOptions = {
             return token
         },
         async session({ session, token }) {
-            let rol: string = "";
+            let rol: UserRoles = "guest";
             try {
                 if (token?.accessToken && typeof token.accessToken === 'string') {
                     const parts = token.accessToken.split('.')
@@ -60,7 +61,7 @@ const authOptions: NextAuthOptions = {
                         // jwtDecode puede lanzar si el token está mal formado, así que lo envolvemos
                         const decoded = jwtDecode(token.accessToken) as Record<string, unknown>
                         // admitir tanto `rol` como `role` en el payload
-                        rol = (decoded.rol as string) || (decoded.role as string) || ""
+                        rol = (decoded.rol as UserRoles) || (decoded.role as UserRoles)
                     }
                 }
 
