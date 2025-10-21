@@ -37,7 +37,7 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
     return (
         <div className="border-2 p-4 rounded-3xl border-background-secondary flex flex-col w-full overflow-y-hidden group relative min-w-60">
             <div className="flex w-11/12 mx-auto">
-                <p className={`${getThemeTypeEvent(data.type)} px-2 py-1 rounded-sm mx-2 mt-1 mb-5 text-sm junto con un ajunta de h-10/12`}>{data.type}</p>
+                <p className={`${getThemeTypeEvent(data.type)} px-2 py-1 rounded-sm mx-2 mt-1 mb-5 text-sm`}>{data.type}</p>
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.imageUrl} alt={`image_${data.id}`} className="w-10/12 mx-auto rounded-xl" />

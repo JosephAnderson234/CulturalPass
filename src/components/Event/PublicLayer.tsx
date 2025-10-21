@@ -7,7 +7,7 @@ export const PublicLayer = () => {
     //aqui irian los datos fetcheados, pero por implementación se harán con datos estáticos
     return (
         <div className='w-full'>
-            <div>
+            <div className='text-center text-xl my-10'>
                 Tabla de eventos más cen 
             </div>
             <div className='flex flex-row gap-4 overflow-x-auto mx-auto my-6 pb-4  px-6'>
