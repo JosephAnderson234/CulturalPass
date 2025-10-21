@@ -1,3 +1,4 @@
+import { UserRoles } from "@src/interfaces/auth/tokenClaims"
 import "next-auth"
 
 declare module "next-auth" {
@@ -8,7 +9,7 @@ declare module "next-auth" {
             email: string
             firstName: string
             lastName: string
-            role: string
+            role: UserRoles
         }
     }
 

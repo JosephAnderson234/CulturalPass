@@ -4,6 +4,7 @@ import { getThemeTypeEvent } from "@src/utils/themeGetter";
 import { interFont } from "../lib/fonts";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
+import { EventType } from "@src/interfaces/event/enums";
 
 
 export const EventCard = ({ data }: { data: EventResponse }) => {
@@ -37,7 +38,7 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
     return (
         <div className="border-2 p-4 rounded-3xl border-background-secondary flex flex-col w-full overflow-y-hidden group relative min-w-60">
             <div className="flex w-11/12 mx-auto">
-                <p className={`${getThemeTypeEvent(data.type)} px-2 py-1 rounded-sm mx-2 mt-1 mb-5 text-sm`}>{data.type}</p>
+                <TypeMiniCard type={data.type} />
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.imageUrl} alt={`image_${data.id}`} className="w-10/12 mx-auto rounded-xl" />
@@ -53,4 +54,26 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
             </div>
         </div>
     );
+}
+
+
+export const TypeMiniCard = ({ type }: { type: EventType }) => {
+    return (
+        <div className={`px-2 py-1 rounded-sm text-sm ${getThemeTypeEvent(type)}`}>
+            {type}
+        </div>
+    )
+}
+
+
+export const TagsList = ({ tags }: { tags: string[] }) => {
+    return (
+        <div className="flex flex-row gap-2 flex-wrap my-2">
+            {tags.map((tag, index) => (
+                <span key={index} className="bg-background-tertiary text-black font-bold px-3 py-1 rounded-full text-sm">
+                    #{tag}
+                </span>
+            ))}
+        </div>
+    )
 }

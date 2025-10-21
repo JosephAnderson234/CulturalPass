@@ -8,7 +8,7 @@ export default async function EventIndividualPage({ params }: { params: Promise<
     
 
     return (
-        <div className=" bg-background rounded-2xl w-11/12 mx-auto">
+        <div className=" w-full mx-auto">
             <EventIndividualSection idEvent={idEvent} />
         </div>
     );
