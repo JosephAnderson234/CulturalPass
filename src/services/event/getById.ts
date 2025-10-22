@@ -1,3 +1,4 @@
+"use server";
 import { EventResponse } from "@src/interfaces/event/EventResponse";
 import loaderEnv from "@src/utils/loaderEnv"
 

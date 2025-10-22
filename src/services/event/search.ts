@@ -1,3 +1,4 @@
+"use server";
 import { PaginatedResponse } from "@src/interfaces/common/PaginatedResponse";
 import { EventResponse } from "@src/interfaces/event/EventResponse";
 import loaderEnv from "@src/utils/loaderEnv"

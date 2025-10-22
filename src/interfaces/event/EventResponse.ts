@@ -11,4 +11,7 @@ export interface EventResponse {
     type: EventType,
     status: EventStatus,
     tags: string[]
+    costEntry: number,
+    capacity: number,
+    currentEnrollment: number
 }

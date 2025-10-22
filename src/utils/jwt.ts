@@ -5,7 +5,7 @@ import { cookies } from "next/headers"
 import { NextRequest } from "next/server"
 
 export async function getTokenServerAction() {
-    const cookieStore = cookies() // <- sin await
+    const cookieStore = await cookies()
     const req = new NextRequest("http://localhost", {
         headers: { cookie: cookieStore.toString() },
     })

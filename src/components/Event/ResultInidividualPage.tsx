@@ -3,9 +3,11 @@ import { EventResponse } from "@src/interfaces/event/EventResponse";
 import { TypeMiniCard, TagsList } from '../common/Cards';
 import { LocationIcon } from '../lib/icons';
 import { EnrollButton } from '../common/Buttons';
+import { ServerActionResponse } from "@src/interfaces/common/ServerActionResponse";
+import Link from "next/link";
 
 
-export default function ResultIndividualPage({ data }: { data: EventResponse }) {
+export default function ResultIndividualPage({ data, dataEnrollment }: { data: EventResponse, dataEnrollment: ServerActionResponse<boolean> }) {
     return (
         <div className="p-8">
             <div className="max-w-7xl mx-auto bg-[var(--background-tertiary)] rounded-3xl shadow-lg overflow-hidden flex flex-col md:flex-row">
@@ -52,9 +54,11 @@ export default function ResultIndividualPage({ data }: { data: EventResponse }) 
 
                     {/*Section for enroll button */}
                     <div className="w-full flex flex-col items-center justify-center py-3">
-                        <EnrollButton idEvent={data.id.toString()}>
-                            Inscribirse {}
-                        </EnrollButton>
+                        {!dataEnrollment.data ? <EnrollButton idEvent={data.id.toString()}>
+                            Inscribirse {data.costEntry > 0 ? `- S/${data.costEntry}` : "(Gratis)"}
+                        </EnrollButton> : <Link href={`/events/${data.id}/dashboard`} className="px-4 py-2 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition-all duration-300">
+                            Ir al panel del evento
+                        </Link>}
                     </div>
                 </div>
 
