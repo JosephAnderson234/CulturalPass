@@ -21,10 +21,10 @@ export const EnrollButton = ({ idEvent, children, ...props }: { idEvent: string,
         actions: {
             ADMIN: () => {},
             CLIENTE: (idEvent) => {
-                alert("dxd");
+                alert("awebo quieres ir al evento con el id: " + idEvent);
             },
             guest: () => {
-                showNotification({ message: "Por favor inicia sesión para continuar", type: "error"});
+                showNotification({ message: "Por favor inicia sesión para continuar", type: "info"});
             },
         },
     })({ idEvent, children, ...props });

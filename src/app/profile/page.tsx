@@ -1,3 +1,5 @@
-export default function ProfilePage() {
-    return <div>Profile Page</div>;
+import { ProfileLayer } from "@src/components/user/ProfileView";
+
+export default async function ProfilePage() {
+    return <ProfileLayer />;
 }

@@ -9,13 +9,13 @@ export const findByTermPaginated = async (term: string, page: number, limit?: nu
 
     const params = new URLSearchParams();
     params.append("term", term);
-    params.append("page", page.toString());
+    params.append("pageSize", page.toString());
     if (limit) {
-        params.append("limit", limit.toString());
+        params.append("pageSize", limit.toString());
     }
 
 
-    const res = await fetch(`${API_URL}/search?${params.toString()}`, {
+    const res = await fetch(`${API_URL}/filtered?${params.toString()}`, {
         cache: "no-store"
     });
 

@@ -1,20 +1,11 @@
 @import "tailwindcss";
 
-:root {
-  --background: #F4DEB2;
-  --background-secondary: #8B4513;
-  --background-tertiary: #F8F8DC;
-  --background-little-2: #D9A51F;
-  --foreground: #171717;
-}
-
-
 @theme {
-  --color-background: var(--background);
-  --color-background-secondary: var(--background-secondary);
-  --color-background-tertiary: var(--background-tertiary);
-  --color-background-little-2: var(--background-little-2);
-  --color-foreground: var(--foreground);
+  --color-background: #F4DEB2;
+  --color-background-secondary: #8B4513;
+  --color-background-tertiary: #F8F8DC;
+  --color-background-little-2: #D9A51F;
+  --color-foreground: #171717;
   /*--font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);*/
 }
