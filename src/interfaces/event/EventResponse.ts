@@ -13,5 +13,5 @@ export interface EventResponse {
     tags: string[]
     costEntry: number,
     capacity: number,
-    currentEnrollment: number
+    currentEnrollments: number
 }
