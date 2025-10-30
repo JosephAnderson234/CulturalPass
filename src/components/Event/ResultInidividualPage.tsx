@@ -54,9 +54,11 @@ export default function ResultIndividualPage({ data, dataEnrollment }: { data: E
 
                     {/*Section for enroll button */}
                     <div className="w-full flex flex-col items-center justify-center py-3">
-                        {!dataEnrollment.data ? <EnrollButton idEvent={data.id.toString()}>
+                        {!dataEnrollment.data ?
+                        <EnrollButton idEvent={data.id.toString()}>
                             Inscribirse {data.costEntry > 0 ? `- S/${data.costEntry}` : "(Gratis)"}
-                        </EnrollButton> : <Link href={`/events/${data.id}/dashboard`} className="px-4 py-2 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition-all duration-300">
+                        </EnrollButton> 
+                        : <Link href={`/events/${data.id}/dashboard`} className="px-4 py-2 rounded-md bg-green-600 text-white font-semibold hover:bg-green-700 transition-all duration-300">
                             Ir al panel del evento
                         </Link>}
                     </div>

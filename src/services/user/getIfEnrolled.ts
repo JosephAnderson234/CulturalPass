@@ -20,7 +20,7 @@ export async function getIfEnrolled(idEvent: string): Promise<ServerActionRespon
             data: false
         }
     }
-    const response = await fetch(`${API_URL}/events/${idEvent}/inrolled`, {
+    const response = await fetch(`${API_URL}/me/enrolled/${idEvent}`, {
         method: "GET",
         headers: {
             "Content-Type": "application/json",

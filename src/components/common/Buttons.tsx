@@ -2,7 +2,8 @@
 import { ButtonHTMLAttributes } from "react";
 import { useNotification } from "../context/NotificationContext";
 import { withRoleActionButton } from "./hoc";
-
+import { useSession } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export const BasicButtonCart = ({ className, children , ...props }: ButtonHTMLAttributes<HTMLButtonElement>) => {
     return (
@@ -17,11 +18,14 @@ export const BasicButtonCart = ({ className, children , ...props }: ButtonHTMLAt
 
 export const EnrollButton = ({ idEvent, children, ...props }: { idEvent: string, children: React.ReactNode }) => {
     const { showNotification } = useNotification();
+    const router = useRouter();
+
     return withRoleActionButton(BasicButtonCart, {
         actions: {
             ADMIN: () => {},
             CLIENTE: (idEvent) => {
                 alert("awebo quieres ir al evento con el id: " + idEvent);
+                
             },
             guest: () => {
                 showNotification({ message: "Por favor inicia sesión para continuar", type: "info"});
