@@ -65,7 +65,7 @@ export default function DataInputs({ selectedMethod, nextPage, prevPage, creditC
             )}
             <div className="flex flex-row w-10/12 mx-auto justify-between">
                 <button onClick={prevPage} className="border-background border cursor-pointer py-3 px-6 rounded-2xl  font-bold text-white bg-background-secondary/80 hover:bg-background-secondary/70 transition-all duration-100">Back</button>
-                <button onClick={nextPage} className="border-background border cursor-pointer py-3 px-6 rounded-2xl  font-bold text-white bg-background-secondary/80 hover:bg-background-secondary/70 transition-all duration-100">Next</button>
+                <button onClick={handleNextPage} className="border-background border cursor-pointer py-3 px-6 rounded-2xl  font-bold text-white bg-background-secondary/80 hover:bg-background-secondary/70 transition-all duration-100">Next</button>
             </div>
         </div>
     );

@@ -16,6 +16,7 @@ export const register = async (credentials: RegisterRequest ) => {
     });
 
     if (!response.ok) {
+        const errorData = await response.json();
         throw new Error("Registration failed");
     }
     console.log("Registro exitoso:", response);
