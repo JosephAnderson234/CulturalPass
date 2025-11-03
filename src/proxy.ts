@@ -10,7 +10,7 @@ export async function proxy(request: NextRequest) {
 
 
     const adminPaths = ['/dashboard', '/dashboard/create', '/profile']
-    const userPaths = ['/profile', '/myevents', '/tickets']
+    const userPaths = ['/profile', '/myevents', '/tickets', '/payment']
     const publicPaths = ['/', '/events', '/event', '/about', '/contact']
 
     const isAuth = !!token

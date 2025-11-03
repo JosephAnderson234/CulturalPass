@@ -39,7 +39,7 @@ export const TimeLeftCounter = ({ startDate }: { startDate: string }) => {
         <div className="flex flex-col items-center my-4">
             <p className={`${interFont.className}`}>Comienza en:</p>
             <p>
-                {timeLeft.months}M {timeLeft.days}D {timeLeft.hours}H {timeLeft.minutes}M
+                {timeLeft.months > 0 && `${timeLeft.months}M`} {timeLeft.days > 0 && `${timeLeft.days}D`} {timeLeft.hours > 0 && `${timeLeft.hours}H`} {timeLeft.minutes > 0 && `${timeLeft.minutes}M`}
             </p>
         </div>
     );
