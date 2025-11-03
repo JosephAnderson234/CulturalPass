@@ -23,7 +23,6 @@ export const EnrollButton = ({ idEvent, children, ...props }: { idEvent: string,
         actions: {
             ADMIN: () => {},
             CLIENTE: (idEvent) => {
-                alert("awebo quieres ir al evento con el id: " + idEvent);
                 router.push("/payment/" + idEvent);
             },
             guest: () => {

@@ -1,8 +1,32 @@
 "use client";
 import { PaymentMethod, CreditCardInfo, YapeInfo } from "@src/interfaces/payment/method";
 import { UseFormRegister } from "react-hook-form";
+import { usePathname } from "next/navigation";
+import { enrollEvent } from "@src/services/user/enrollEvent";
 
 export default function DataInputs({ selectedMethod, nextPage, prevPage, creditCardRegister, yapeRegister }: { selectedMethod: PaymentMethod; nextPage: () => void; prevPage: () => void; creditCardRegister: UseFormRegister<CreditCardInfo>; yapeRegister: UseFormRegister<YapeInfo>; }) {
+
+    //get if from the url
+    const pathname = usePathname();
+    const idEvent = pathname.split("/")[2];
+
+    const handleNextPage = async () => {
+        // Here you can handle the form submission logic based on the selected payment method
+        //mocked for now
+        if (selectedMethod === "credit_card") {
+            //const data = creditCardGetValues();
+            // Send data to your API
+        } else if (selectedMethod === "yape") {
+            //const data = yapeGetValues();
+            // Send data to your API
+        }
+
+        await enrollEvent(idEvent);
+        
+        nextPage();
+
+    }
+
     return (
         <div className="w-full">
             {selectedMethod === "credit_card" && (

@@ -4,6 +4,7 @@ import { usePathname } from "next/navigation";
 import Logo from "@src/assets/logo.png"
 import { AuthSection } from './AuthSection';
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 
 const SearchSide = dynamic(() => import('@src/components/common/SearchSide'), { ssr: false });
@@ -20,7 +21,10 @@ export const Header = () => {
     return (
         <header className=" py-2 px-4 m-4 bg-background-secondary rounded-3xl flex justify-between items-center">
             <div className="flex justify-center">
-                <Image className="w-24" src={Logo} alt="Logo" priority />
+                <Link href="/">
+                    <Image className="w-24" src={Logo} alt="Logo" priority />
+                </Link>
+                    
             </div>
 
             {showSearch && <SearchSide placeholder="Buscar un evento..." />}
