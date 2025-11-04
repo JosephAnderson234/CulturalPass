@@ -45,6 +45,44 @@ export const TimeLeftCounter = ({ startDate }: { startDate: string }) => {
     );
 }
 
+export const TimeLeftCounterWithSeconds = ({ startDate }: { startDate: string }) => {
+    const calculateTimeLeft = useCallback(() => {
+        const eventDate = new Date(startDate);
+        const now = new Date();
+        const diff = eventDate.getTime() - now.getTime();
+        if (diff <= 0) return { months: 0, days: 0, hours: 0, minutes: 0, seconds: 0 };
+        let remaining = diff;
+        const months = Math.floor(remaining / (1000 * 60 * 60 * 24 * 30));
+        remaining -= months * (1000 * 60 * 60 * 24 * 30);
+        const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
+        remaining -= days * (1000 * 60 * 60 * 24);
+        const hours = Math.floor(remaining / (1000 * 60 * 60));
+        remaining -= hours * (1000 * 60 * 60);
+        const minutes = Math.floor(remaining / (1000 * 60));
+        remaining -= minutes * (1000 * 60);
+        const seconds = Math.floor(remaining / 1000);
+        return { months, days, hours, minutes, seconds };
+    }, [startDate]);
+
+    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+
+    useEffect(() => {
+        const timer = setInterval(() => {
+            setTimeLeft(calculateTimeLeft());
+        }, 1000);
+        return () => clearInterval(timer);
+    }, [calculateTimeLeft]);
+    
+    return (
+        <div className="flex flex-col items-center my-4">
+            <p className={`${interFont.className}`}>Comienza en:</p>
+            <p>
+                {timeLeft.months > 0 && `${timeLeft.months}M`} {timeLeft.days > 0 && `${timeLeft.days}D`} {timeLeft.hours > 0 && `${timeLeft.hours}H`} {timeLeft.minutes > 0 && `${timeLeft.minutes}M` } {timeLeft.seconds >= 0 && `${timeLeft.seconds}S`}
+            </p>
+        </div>
+    );
+}
+
 export const TimeLeftCounterNoSSR = dynamic(() => Promise.resolve(TimeLeftCounter), { ssr: false });
 
 export const EventCard = ({ data }: { data: EventResponse }) => {

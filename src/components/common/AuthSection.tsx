@@ -14,7 +14,10 @@ export const AuthSection = () => {
     if (status === "authenticated") {
         return (
             <div className="text-white text-xl p-3 pr-5 flex flex-row items-center">
-                {session.user?.firstName}  <UserIcon className="inline w-10 ml-2 text-white" />
+                <Link href={`/profile`}>
+                    <p>{session.user?.firstName}</p>
+                </Link>
+                <UserIcon className="inline w-10 ml-2 text-white" />
             </div>
         );
     }

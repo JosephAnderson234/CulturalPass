@@ -19,6 +19,6 @@ export const enrollEvent = async (eventId: string) => {
         console.error("Error al inscribirse en el evento:", errorData);
         throw new Error("Failed to enroll in event");
     }
-
+    console.log("Inscripción exitosa en el evento:", res);
     return res.json() as Promise<void>;
 };
