@@ -63,7 +63,7 @@ export const RightArrowIcon = (props: React.SVGProps<SVGSVGElement>) => (
         viewBox="0 0 512 512"
         {...props}
     >
-        <path d="m238.23 342.43 89.09-74.13a16 16 0 0 0 0-24.6l-89.09-74.13A16 16 0 0 0 212 181.86v148.28a16 16 0 0 0 26.23 12.29z" />
+        <path fill="currentColor" d="m238.23 342.43 89.09-74.13a16 16 0 0 0 0-24.6l-89.09-74.13A16 16 0 0 0 212 181.86v148.28a16 16 0 0 0 26.23 12.29z" />
         <path
             fill="none"
             stroke="currentColor"

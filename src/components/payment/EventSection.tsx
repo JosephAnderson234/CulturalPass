@@ -1,7 +1,7 @@
 "use client";
 
 import { EventResponse } from "@src/interfaces/event/EventResponse";
-import { TimeLeftCounter, TypeMiniCard } from "../common/Cards";
+import { TimeLeftCounterNoSSR, TypeMiniCard } from "../common/Cards";
 import Image from 'next/image';
 
 export const EventSection = ({event} : {event: EventResponse}) => {
@@ -28,7 +28,7 @@ export const EventSection = ({event} : {event: EventResponse}) => {
                         </div>
 
                         <div className=" text-sm text-gray-700">
-                            <TimeLeftCounter startDate={event.startDate} />
+                            <TimeLeftCounterNoSSR startDate={event.startDate} />
                         </div>
                         <div className="mt-4">
                             <div className="flex flex-wrap gap-2">

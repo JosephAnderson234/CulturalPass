@@ -17,6 +17,6 @@ export const getThemeTypeEvent = (typeEvent: EventType): string => {
         case EventType.FERIA:
             return "bg-orange-500 text-white";
         default:
-            return "bg-gray-500 text-white";
+            return "bg-green-500 text-white";
     }
 }

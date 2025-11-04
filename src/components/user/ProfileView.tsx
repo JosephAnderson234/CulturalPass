@@ -6,12 +6,12 @@ export async function ProfileLayer() {
     const data = await getProfile();
 
     return (
-            <div className="mx-auto p-5 flex flex-row bg-background w-11/12 rounded-3xl shadow-lg gap-10">
-                <div className="w-1/2">
+            <div className="mx-auto p-5 grid grid-cols-2  bg-background w-11/12 rounded-3xl shadow-lg gap-10 items-stretch">
+                <div className="">
                     <ProfileForm data={data} />
                 </div>
                 
-                <div className="w-1/2">
+                <div className="">
                     <LatestEvents />
                 </div>
             </div>
