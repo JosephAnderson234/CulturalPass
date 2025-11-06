@@ -23,9 +23,9 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
     }, 300);
 
     return (
-        <div className="relative flex items-center justify-center p-3 w-full max-w-lg">
+        <div className="relative flex items-center justify-center p-3 w-full">
             <input
-                className="block w-full  rounded-xl pl-5 placeholder:text-black bg-background text-black p-3 text-left"
+                className="block w-full  rounded-3xl shadow-2xl xl pl-5 placeholder:text-[#bdbdbc] placeholder:font-semibold bg-bg-alternative text-black p-3 text-left"
                 name='search'
                 placeholder={placeholder}
                 onChange={(e) => {

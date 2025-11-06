@@ -5,7 +5,7 @@ import { getTokenServerAction } from "@src/utils/jwt";
 const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:3000";
 
 
-export const enrollEvent = async (eventId: string) => {
+export const enrollEvent = async (eventId: string): Promise<void> => {
     const token = await getTokenServerAction();
     const res = await fetch(`${API_URL}/api/user/me/enroll/${eventId}`, {
         method: "POST",
@@ -20,5 +20,4 @@ export const enrollEvent = async (eventId: string) => {
         throw new Error("Failed to enroll in event");
     }
     console.log("Inscripción exitosa en el evento:", res);
-    return res.json() as Promise<void>;
 };

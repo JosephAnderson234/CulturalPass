@@ -21,6 +21,7 @@ export const getLatestEvents = async () => {
         throw new Error("Error fetching latest events");
     }
     const data = await response.json();
+    console.log("Latest events data:", data);
     return data as Promise<EventResponse[]>;
 
 }

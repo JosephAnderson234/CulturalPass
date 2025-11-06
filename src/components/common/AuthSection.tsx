@@ -1,7 +1,6 @@
 "use client";
 
-import { useSession } from "next-auth/react";
-import { UserIcon } from "../lib/icons";
+import { useSession, signOut } from "next-auth/react";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 export const AuthSection = () => {
@@ -13,12 +12,21 @@ export const AuthSection = () => {
 
     if (status === "authenticated") {
         return (
-            <div className="text-white text-xl p-3 pr-5 flex flex-row items-center">
-                <Link href={`/profile`}>
-                    <p>{session.user?.firstName}</p>
-                </Link>
-                <UserIcon className="inline w-10 ml-2 text-white" />
+            <div className="flex items-center flex-row">
+                <div className="text-white text-xl p-3 pr-5 flex flex-row items-center rounded-3xl bg-background">
+                    <div className="bg-background-little-1 rounded-full h-10 w-10 flex items-center justify-center mr-3 text-white font-bold">
+                        {session.user.firstName[0].toUpperCase()}
+                    </div>
+                    <Link href={`/profile`} className="flex flex-col">
+                        <p className="text-background-little-1 text-sm">Bienvenido:</p>
+                        <p className="text-background-little-1 text-sm font-bold">{session.user?.firstName}</p>
+                    </Link>
+                </div>
+                <button onClick={() => signOut()} className="min-w-fit  mx-4 px-4 py-2 bg-transparent text-background-secondary rounded-3xl border-background-secondary border-2  transition-colors cursor-pointer hover:bg-background-secondary hover:text-white">
+                    Cerrar Sesión
+                </button>
             </div>
+
         );
     }
 

@@ -19,17 +19,25 @@ export const Header = () => {
     }
 
     return (
-        <header className=" py-2 px-4 m-4 bg-background-secondary rounded-3xl flex justify-between items-center">
-            <div className="flex justify-center">
-                <Link href="/">
-                    <Image className="w-24" src={Logo} alt="Logo" priority />
-                </Link>
-                    
+        <header className=" py-2 px-4 bg-background-tertiary">
+            <div className="flex justify-between items-center max-w-7xl mx-auto">
+                <div className="flex justify-center min-w-fit mx-4 my-3">
+                    <Link href="/" className="flex flex-row items-center text-background-secondary font-bold">
+                        <Image className="w-24" src={Logo} alt="Logo" priority />
+                        <div className="font-sans">
+                            Centro Cultural
+                            <br />
+                            Amador Ballumbrioso
+                        </div>
+                    </Link>
+
+                </div>
+
+                {showSearch && <SearchSide placeholder="Buscar un evento..." />}
+
+                <AuthSection />
             </div>
 
-            {showSearch && <SearchSide placeholder="Buscar un evento..." />}
-
-            <AuthSection />
 
         </header>
     )
