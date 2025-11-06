@@ -23,3 +23,13 @@ export const getNearestConcert = async (): Promise<EventResponse[]> => {
     const data: PaginatedResponse<EventResponse> = await res.json();
     return data.content;
 }
+
+
+export const getNearestConference = async (): Promise<EventResponse[]> => {
+    const res = await fetch(`${API_URL}/filtered?currentPage=0&pageSize=4&type=CONFERENCIA&sortByDate=nearest`);
+    if (!res.ok) {
+        throw new Error("Error fetching nearest conferences");
+    }
+    const data: PaginatedResponse<EventResponse> = await res.json();
+    return data.content;
+}

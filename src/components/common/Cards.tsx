@@ -176,7 +176,7 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
 
 export const TypeMiniCard = ({ type }: { type: EventType }) => {
     return (
-        <div className={`px-2 py-1 rounded-sm text-sm ${getThemeTypeEvent(type)}`}>
+        <div className={`px-2 py-1 rounded-sm text-sm ${getThemeTypeEvent(type.toString())}`}>
             {type}
         </div>
     )
