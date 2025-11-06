@@ -19,7 +19,7 @@ export const Header = () => {
     }
 
     return (
-        <header className=" py-2 px-4 bg-background-tertiary">
+        <header className=" py-2 px-4 bg-background-tertiary sticky top-0 w-full z-50 shadow-md">
             <div className="flex justify-between items-center max-w-7xl mx-auto">
                 <div className="flex justify-center min-w-fit mx-4 my-3">
                     <Link href="/" className="flex flex-row items-center text-background-secondary font-bold">

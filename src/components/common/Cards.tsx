@@ -1,49 +1,87 @@
 "use client";
 import { EventResponse } from "@src/interfaces/event/EventResponse";
 import { getThemeTypeEvent } from "@src/utils/themeGetter";
-import { interFont } from "../lib/fonts";
 import { useEffect, useState, useCallback } from "react";
 import Link from "next/link";
 import { EventType } from "@src/interfaces/event/enums";
 import dynamic from "next/dynamic";
+import Image from "next/image";
 
 
-export const TimeLeftCounter = ({ startDate, className }: { startDate: string, className?: string }) => {
+
+export const TimeLeftCounter = ({
+    startDate,
+    className,
+}: {
+    startDate: string;
+    className?: string;
+}) => {
     const calculateTimeLeft = useCallback(() => {
-        const eventDate = new Date(startDate);
-        const now = new Date();
-        const diff = eventDate.getTime() - now.getTime();
-        if (diff <= 0) return { months: 0, days: 0, hours: 0, minutes: 0 };
-        let remaining = diff;
-        const months = Math.floor(remaining / (1000 * 60 * 60 * 24 * 30));
-        remaining -= months * (1000 * 60 * 60 * 24 * 30);
-        const days = Math.floor(remaining / (1000 * 60 * 60 * 24));
-        remaining -= days * (1000 * 60 * 60 * 24);
-        const hours = Math.floor(remaining / (1000 * 60 * 60));
-        remaining -= hours * (1000 * 60 * 60);
-        const minutes = Math.floor(remaining / (1000 * 60));
-        remaining -= minutes * (1000 * 60);
-        return { months, days, hours, minutes };
+        const eventMs = new Date(startDate).getTime(); // ISO con Z → UTC correcto
+        const nowMs = Date.now();
+
+        let diff = eventMs - nowMs;
+        if (diff <= 0) {
+            return { days: 0, hours: 0, minutes: 0, seconds: 0, totalMs: 0 };
+        }
+
+        const days = Math.floor(diff / 86_400_000); // 24*60*60*1000
+        diff -= days * 86_400_000;
+
+        const hours = Math.floor(diff / 3_600_000);
+        diff -= hours * 3_600_000;
+
+        const minutes = Math.floor(diff / 60_000);
+        diff -= minutes * 60_000;
+
+        const seconds = Math.floor(diff / 1_000);
+
+        return { days, hours, minutes, seconds, totalMs: eventMs - nowMs };
     }, [startDate]);
 
-    const [timeLeft, setTimeLeft] = useState(calculateTimeLeft());
+    const [timeLeft, setTimeLeft] = useState<{
+        days: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+        totalMs: number;
+    } | null>(null);
 
     useEffect(() => {
-        const timer = setInterval(() => {
-            setTimeLeft(calculateTimeLeft());
-        }, 1000);
-        return () => clearInterval(timer);
+        const tick = () => setTimeLeft(calculateTimeLeft());
+        tick(); // primera actualización al montar
+        const id = setInterval(tick, 1000);
+        return () => clearInterval(id);
     }, [calculateTimeLeft]);
-    
+
+    if (!timeLeft) {
+        return (
+            <div className={className ?? "flex flex-col items-center my-4"}>
+                <p>Comienza en:</p>
+                <p>—</p>
+            </div>
+        );
+    }
+
+    const { days, hours, minutes, seconds, totalMs } = timeLeft;
+
+    // Helper para ocultar unidades 0 pero no dejar vacío
+    const parts: string[] = [];
+    if (days > 0) parts.push(`${days}D`);
+    if (hours > 0 || days > 0) parts.push(`${hours}H`);
+    if (minutes > 0 || hours > 0 || days > 0) parts.push(`${minutes}m`);
+    // Siempre mostramos segundos si queda < 1h, así el usuario siente “movimiento”
+    if (days === 0 && hours === 0) parts.push(`${seconds}s`);
+
+    const display = totalMs > 0 ? parts.join(" ") : "0m";
+
     return (
-        <div className={ className ? ` ${className}` : "flex flex-col items-center my-4"}>
-            <p className={`${interFont.className}`}>Comienza en:</p>
-            <p>
-                {timeLeft.months > 0 && `${timeLeft.months}M`} {timeLeft.days > 0 && `${timeLeft.days}D`} {timeLeft.hours > 0 && `${timeLeft.hours}H`} {timeLeft.minutes > 0 && `${timeLeft.minutes}M`}
-            </p>
+        <div className={className ?? "flex flex-col items-center my-4"}>
+            <p>Comienza en:</p>
+            <p>{display}</p>
         </div>
     );
-}
+};
 
 export const TimeLeftCounterNoSSR = dynamic(() => Promise.resolve(TimeLeftCounter), { ssr: false });
 
@@ -86,6 +124,27 @@ export const TagsList = ({ tags }: { tags: string[] }) => {
                     #{tag}
                 </span>
             ))}
+        </div>
+    )
+}
+
+
+
+export const MiniBannerCard = ({ data }: { data: EventResponse }) => {
+    return (
+        <div className=" rounded-3xl p-8 md:p-12 shadow-lg bg-gradient-to-br  from-[#d2a36d]  to-[#B87A50] flex flex-row">
+            <div className="w-2/3">
+                <h2 className="text-2xl md:text-3xl xl:text-5xl font-bold mb-4 text-white">Descubre experiencias culturales únicas en el Centro Cultural Amador Ballumbrosio</h2>
+                <p className="text-white mb-6 text-xl ">Evento destacado: <span className="font-bold">{data.title}</span></p>
+
+                <Link href={`/event/${data.id}`} className="inline-block bg-white text-black font-semibold px-6 py-3 rounded-full hover:bg-gray-200 transition">
+                    Ver evento
+                </Link>
+            </div>
+            <div className="w-1/3">
+                <Image src={data.imageUrl} alt={`image_${data.id}`} width={400} height={200} className="mt-4 rounded-xl object-cover" />
+            </div>
+
         </div>
     )
 }
