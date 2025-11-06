@@ -15,7 +15,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
                 <TypeMiniCard type={event.type} />
             </div>
 
-            <div className="flex flex-row gap-8 sm:flex-col items-center">
+            <div className="flex flex-row gap-8 sm:gap-0 sm:flex-col items-center">
                 <p className="text-base sm:text-lg font-medium">{event.title}</p>
                 <div className="mt-2 mx-auto">
                     {isEventEnded ? (
@@ -28,7 +28,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
                 </div>
             </div>
 
-            <div className="flex flex-col mx-auto">
+            <div className="flex flex-col mx-auto sm:mx-0">
                 <Link href={`/myevents/${event.id}`} className="inline-flex items-center justify-center p-2">
                     <RightArrowIcon className=" w-8 h-8 text-background-secondary" />
                 </Link>
