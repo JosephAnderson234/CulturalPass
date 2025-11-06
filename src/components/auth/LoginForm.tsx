@@ -28,33 +28,41 @@ export default function LoginForm() {
     }
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col gap-4 items-center p-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-center">
+                <div className="md:col-span-5 flex items-center justify-center">
+                    <Image className="w-9/12  h-auto" src={Logo} alt="Logo" priority />
+                </div>
 
-            <div className="w-full">
-                <Image className="w-8/12 mx-auto" src={Logo} alt="Logo" priority />
-            </div>
+                <div className="md:col-span-7">
+                    <div className="flex flex-col gap-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="email" className="text-white pl-2 pb-1">Correo</label>
+                            <input id="email" className="rounded-2xl bg-background-tertiary px-3 py-2 w-full" type="email" placeholder="Email" {...register("email", { required: true })} />
+                        </div>
 
-            <div className="flex flex-col w-full">
-                <label htmlFor="email" className="text-white pl-3 py-1">Correo: </label>
-                <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="email" placeholder="Email" {...register("email", { required: true })} />
-            </div>
-            <div className="flex flex-col w-full">
-                <label htmlFor="password" className="text-white pl-3 py-1">Contraseña: </label>
-                <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="password" placeholder="Password" {...register("password", { required: true })} />
-            </div>
+                        <div className="flex flex-col">
+                            <label htmlFor="password" className="text-white pl-2 pb-1">Contraseña</label>
+                            <input id="password" className="rounded-2xl bg-background-tertiary px-3 py-2 w-full" type="password" placeholder="Password" {...register("password", { required: true })} />
+                        </div>
 
-            <div>
-                {errors.email && <span>El correo es obligatorio</span>}
-                {errors.password && <span>La contraseña es obligatoria</span>}
-                {error && <span className="text-red-500">Credenciales inválidas</span>}
-            </div>
+                        <div className="text-sm text-red-500">
+                            {errors.email && <div>El correo es obligatorio</div>}
+                            {errors.password && <div>La contraseña es obligatoria</div>}
+                            {error && <div className="text-red-500">Credenciales inválidas</div>}
+                        </div>
 
-            <div className="text-white">
-                No tienes cuenta? <Link href={`/auth/register${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Regístrate</Link>
-            </div>
+                        <div className="text-white">
+                            No tienes cuenta? <Link href={`/auth/register${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Regístrate</Link>
+                        </div>
 
-            <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl cursor-pointer">Iniciar Sesión</button>
+                        <div className="flex justify-center">
+                            <button type="submit" className="w-10/12 md:w-6/12 bg-background p-2 rounded-2xl">Iniciar Sesión</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </form>
-    )
+    );
 
 }

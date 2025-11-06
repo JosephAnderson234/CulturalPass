@@ -14,77 +14,111 @@ export default function RegisterForm() {
         register,
         handleSubmit,
         formState: { errors },
-    } = useForm<RegisterRequest>()
+    } = useForm<RegisterRequest>();
 
     const searchParams = useSearchParams();
     const callbackUrl = searchParams.get("callbackUrl") || "/";
     const error = searchParams.get("error");
 
     const onSubmit: SubmitHandler<RegisterRequest> = async (dataForRegister) => {
+        await registerService(dataForRegister);
 
-        await registerService(dataForRegister)
-
-        signIn("credentials", {
-            ...{
-                email: dataForRegister.email,
-                password: dataForRegister.password
+        signIn(
+            "credentials",
+            {
+                ...{
+                    email: dataForRegister.email,
+                    password: dataForRegister.password,
+                },
+                redirect: true,
+                callbackUrl,
             },
-            redirect: true,
-            callbackUrl
-        })
-    }
+            // fallback
+        );
+    };
 
     return (
-        <form onSubmit={handleSubmit(onSubmit)} className="flex  flex-col md:flex-row items-center p-2">
+        <form onSubmit={handleSubmit(onSubmit)} className="w-full">
+            <div className="grid grid-cols-1 md:grid-cols-12 gap-6 items-start">
+                <div className="md:col-span-5 flex items-center justify-center flex-col h-full">
+                    <Image className="w-9/12 h-auto" src={Logo} alt="Logo" priority />
+                </div>
 
-            <div className="min-w-5/12">
-                <Image className="min-w-8/12 mx-auto p-3 md:p-0" src={Logo} alt="Logo" priority />
+                <div className="md:col-span-7">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                        <div className="flex flex-col">
+                            <label htmlFor="email" className="text-white pl-2 pb-1">Correo</label>
+                            <input
+                                id="email"
+                                className="rounded-2xl bg-background-tertiary px-3 py-2 w-full"
+                                type="email"
+                                placeholder="Email"
+                                {...register("email", { required: true })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label htmlFor="password" className="text-white pl-2 pb-1">Contraseña</label>
+                            <input
+                                id="password"
+                                className="rounded-2xl bg-background-tertiary px-3 py-2 w-full"
+                                type="password"
+                                placeholder="Password"
+                                {...register("password", { required: true })}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-3">
+                        <div className="flex flex-col">
+                            <label htmlFor="firstName" className="text-white pl-2 pb-1">Nombres</label>
+                            <input
+                                id="firstName"
+                                className="rounded-2xl bg-background-tertiary px-3 py-2 w-full"
+                                type="text"
+                                placeholder="Nombres"
+                                {...register("firstName", { required: true })}
+                            />
+                        </div>
+
+                        <div className="flex flex-col">
+                            <label htmlFor="lastName" className="text-white pl-2 pb-1">Apellidos</label>
+                            <input
+                                id="lastName"
+                                className="rounded-2xl bg-background-tertiary px-3 py-2 w-full"
+                                type="text"
+                                placeholder="Apellidos"
+                                {...register("lastName", { required: true })}
+                            />
+                        </div>
+                    </div>
+
+                    <div className="mt-4">
+                        <label htmlFor="cellphone" className="text-white pl-2 pb-1">Número de celular</label>
+                        <input
+                            id="cellphone"
+                            className="rounded-2xl bg-background-tertiary px-3 py-2 w-full max-w-sm"
+                            type="text"
+                            placeholder="Número de celular"
+                            {...register("cellphone", { required: true })}
+                        />
+                    </div>
+
+                    <div className="mt-3 text-sm text-red-500">
+                        {errors.email && <div>El correo es obligatorio</div>}
+                        {errors.password && <div>La contraseña es obligatoria</div>}
+                        {error && <div className="text-red-500">Credenciales inválidas</div>}
+                    </div>
+
+                    <div className="mt-4 text-white text-center">
+                        Ya tienes cuenta? <Link href={`/auth/login${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Inicia Sesión</Link>
+                    </div>
+
+                    <div className="mt-4 flex justify-center">
+                        <button type="submit" className="w-10/12 md:w-6/12 bg-background p-2 rounded-2xl">Registrarse</button>
+                    </div>
+                </div>
             </div>
-
-            <div className="min-w-7/12 flex flex-col justify-center">
-                <div className="flex gap-4">
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="email" className="text-white pl-3 py-1">Correo: </label>
-                        <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="email" placeholder="Email" {...register("email", { required: true })} />
-                    </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="password" className="text-white pl-3 py-1">Contraseña: </label>
-                        <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="password" placeholder="Password" {...register("password", { required: true })} />
-                    </div>
-                </div>
-
-                <div className="flex gap-4">
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="firstName" className="text-white pl-3 py-1">Nombres: </label>
-                        <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="text" placeholder="Nombres" {...register("firstName", { required: true })} />
-                    </div>
-                    <div className="flex flex-col w-full">
-                        <label htmlFor="lastName" className="text-white pl-3 py-1">Apellidos: </label>
-                        <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="text" placeholder="Apellidos" {...register("lastName", { required: true })} />
-                    </div>
-                </div>
-
-                <div className="flex gap-4 w-1/2 mx-auto">
-                    <div className="flex flex-col w-full items-center">
-                        <label htmlFor="phone" className="text-white py-1">Numero de celular: </label>
-                        <input className="rounded-2xl bg-background-tertiary px-3 py-2" type="text" placeholder="Numero de celular" {...register("cellphone", { required: true })} />
-                    </div>
-                </div>
-                <div>
-                    {errors.email && <span>El correo es obligatorio</span>}
-                    {errors.password && <span>La contraseña es obligatoria</span>}
-                    {error && <span className="text-red-500">Credenciales inválidas</span>}
-                </div>
-
-                <div className="text-white text-center my-2">
-                    Ya tienes cuenta? <Link href={`/auth/login${callbackUrl ? `?callbackUrl=${callbackUrl}` : ''}`}>Inicia Sesión</Link>
-                </div>
-
-                <button type="submit" className="mx-auto w-10/12 bg-background p-2 rounded-2xl cursor-pointer">Registrarse</button>
-            </div>
-
-
         </form>
-    )
-
+    );
 }
