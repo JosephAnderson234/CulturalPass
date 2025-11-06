@@ -12,13 +12,15 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
                 <TypeMiniCard type={event.type} />
             </div>
             <div className="flex-col items-center">
-                <p className="text-xl">{event.title}</p>
+                <p className="text-lg text-center">{event.title}</p>
 
                 <TimeLeftCounterNoSSR startDate={event.startDate} className="flex my-1 text-sm justify-center" />
 
             </div>
             <div className="flex items-center justify-center">
-                <RightArrowIcon className="w-12 text-background-secondary"/>
+                <Link href={`/event/${event.id}`}>
+                    <RightArrowIcon className="w-10 mx-2 text-background-secondary"/>
+                </Link>
             </div>
         </div>
     )
@@ -27,7 +29,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
 export default async function LatestEvents() {
     const events = await getLatestEvents();
     return (
-        <div className="w-10/12 mx-auto p-5 bg-background-tertiary/80 rounded-2xl m-5">
+        <div className="w-10/12 mx-auto p-5 bg-bg-alternative rounded-2xl m-5">
 
             <h2 className="text-xl font-bold mb-4 text-center">Eventos Recientes</h2>
 
@@ -43,7 +45,7 @@ export default async function LatestEvents() {
 
 
             <div className="text-center my-4">
-                <Link href="/dashboard" className="bg-background-secondary px-2 py-3 text-white rounded-xl">
+                <Link href="/myevents" className="bg-background-secondary px-2 py-3 text-white rounded-xl">
                     Ver todos los eventos
                 </Link>
             </div>

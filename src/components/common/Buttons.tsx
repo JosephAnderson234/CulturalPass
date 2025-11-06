@@ -31,3 +31,16 @@ export const EnrollButton = ({ idEvent, children, ...props }: { idEvent: string,
         },
     })({ idEvent, children, ...props });
 };
+
+
+export const BackButton = () => {
+    const router = useRouter();
+    return (
+        <button
+            onClick={() => router.back()}
+            className=" my-3 text-background-little-1 text-base cursor-pointer hover:underline"
+        >
+            ← Volver
+        </button>
+    );
+}

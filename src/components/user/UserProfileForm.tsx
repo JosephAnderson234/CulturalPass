@@ -10,7 +10,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <form className="w-10/12 mx-auto p-5 bg-background-tertiary/80 rounded-2xl m-5 ">
+        <form className="w-10/12 mx-auto p-5 bg-bg-alternative rounded-2xl m-5 ">
             <h1 className="text-center my-2 font-bold text-xl">Perfil de Usuario</h1>
             <div className="flex flex-row p-3 gap-4">
                 <label htmlFor="">Nombres: </label>
@@ -28,7 +28,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
                 <label htmlFor="">Teléfono: </label>
                 <input type="text" defaultValue={data.cellphone || ''} disabled={!isEditing} />
             </div>
-            <div className="flex justify-center mt-4">
+            {/* <div className="flex justify-center mt-4">
                 {
                 isEditing ?
                     <>
@@ -61,7 +61,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
             <button onClick={() => signOut({callbackUrl:"/"})} type="button" className="ml-4 px-4 py-2 bg-gray-700 text-white rounded-md hover:bg-gray-800 transition-colors cursor-pointer">
                 Cerrar Sesión
             </button>
-            </div>
+            </div> */}
 
         </form>
     );

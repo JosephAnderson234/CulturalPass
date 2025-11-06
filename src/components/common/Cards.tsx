@@ -57,7 +57,7 @@ export const TimeLeftCounter = ({
     if (!timeLeft) {
         return (
             <div className={className ?? "flex flex-col items-center my-4"}>
-                <p>Comienza en:</p>
+                <p>Comienza en: </p>
                 <p>—</p>
             </div>
         );
@@ -77,7 +77,7 @@ export const TimeLeftCounter = ({
 
     return (
         <div className={className ?? "flex flex-col items-center my-4"}>
-            <p>Comienza en:</p>
+            <p className="mr-1">Comienza en:</p>
             <p>{display}</p>
         </div>
     );
