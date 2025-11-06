@@ -10,25 +10,27 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
     const isEventEnded = new Date(event.endDate).getTime() < Date.now();
 
     return (
-        <div className="border-2 border-background-secondary p-2 flex flex-row justify-between rounded-2xl">
-            <div className="flex flex-col items-center justify-center min-w-24">
+        <div className="border-2 border-background-secondary p-3 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+            <div className="flex-shrink-0">
                 <TypeMiniCard type={event.type} />
             </div>
-            <div className="flex-col items-center">
-                <p className="text-lg text-center">{event.title}</p>
 
-                {isEventEnded ? (
-                    <span className="text-red-600 font-semibold my-7">Evento finalizado</span>
-                ) : isEventStarted ? (
-                    <TimeToCloseEventNoSSR endDate={event.endDate} className="flex my-1 text-sm justify-center" />
-                ) : (
-                    <TimeLeftCounterNoSSR startDate={event.startDate} className="flex my-1 text-sm justify-center" />
-                )}
-
+            <div className="flex-1">
+                <p className="text-base sm:text-lg font-medium">{event.title}</p>
+                <div className="mt-2">
+                    {isEventEnded ? (
+                        <span className="text-red-600 font-semibold">Evento finalizado</span>
+                    ) : isEventStarted ? (
+                        <TimeToCloseEventNoSSR endDate={event.endDate} className="text-sm" />
+                    ) : (
+                        <TimeLeftCounterNoSSR startDate={event.startDate} className="text-sm" />
+                    )}
+                </div>
             </div>
-            <div className="flex items-center justify-center">
-                <Link href={`/myevents/${event.id}`}>
-                    <RightArrowIcon className="w-10 mx-2 text-background-secondary"/>
+
+            <div className="flex-shrink-0">
+                <Link href={`/myevents/${event.id}`} className="inline-flex items-center justify-center p-2">
+                    <RightArrowIcon className=" w-8 h-8 text-background-secondary" />
                 </Link>
             </div>
         </div>
@@ -38,11 +40,11 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
 export default async function LatestEvents() {
     const events = await getLatestEvents();
     return (
-        <div className="w-10/12 mx-auto p-5 bg-background-tertiary shadow-md rounded-2xl m-5">
+        <div className="w-full max-w-xl mx-auto p-4 sm:p-6 bg-background-tertiary shadow-md rounded-2xl">
 
-            <h2 className="text-xl font-bold mb-4 text-center">Eventos Recientes</h2>
+            <h2 className="text-lg sm:text-xl font-bold mb-4 text-center">Eventos Recientes</h2>
 
-            <div className=" rounded-2xl p-5 ">
+            <div className="space-y-3">
                 {events.length === 0 ? (
                     <p className="text-center my-5">No hay eventos recientes.</p>
                 ) : (
@@ -54,7 +56,7 @@ export default async function LatestEvents() {
 
 
             <div className="text-center my-4">
-                <Link href="/myevents" className="bg-background-secondary px-2 py-3 text-white rounded-xl">
+                <Link href="/myevents" className="inline-block bg-background-secondary px-4 py-2 text-white rounded-xl">
                     Ver todos los eventos
                 </Link>
             </div>

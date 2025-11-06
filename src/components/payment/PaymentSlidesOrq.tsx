@@ -32,10 +32,10 @@ export default function PaymentSlidesOrq() {
         <FinalResult key={2} />
     ];
     return (
-        <div className="w-full">
+        <div className="w-full overflow-hidden">
             <motion.ul
                 className="w-full flex flex-row"
-                transition={{ duration: 0.4 }}
+                transition={{ duration: 0.45, ease: "easeInOut" }}
                 animate={{ x: `-${currentSlide * 100}%` }}
                 initial={{ x: `-${currentSlide * 100}%` }}
             >
@@ -43,7 +43,7 @@ export default function PaymentSlidesOrq() {
                     return (
                         <li
                             key={index}
-                            className="w-full flex-none basis-full will-change-transform"
+                            className="w-full flex-none basis-full min-w-full will-change-transform"
                         >
                             {SlideComponent}
                         </li>

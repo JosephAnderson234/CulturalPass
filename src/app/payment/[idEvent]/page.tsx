@@ -7,13 +7,16 @@ export default async function EventIndividualPaymentPage({ params }: { params: P
     const { idEvent } = await params;
     const data = await getEventById(idEvent);
     return (
-        <div className="w-full mx-auto">
-            <div className="w-10/12 mx-auto bg-background-secondary/85 shadow-2xl shadow-background-secondary/85 my-10 p-10 rounded-3xl flex flex-row gap-10">
-                <div className="w-1/4">
-                    <EventSection event={data} />
-                </div>
-                <div className="w-3/4 overflow-hidden">
-                    <PaymentSlidesOrq />
+        <div className="w-full">
+            <div className="max-w-7xl mx-auto my-8 px-4 sm:px-6 lg:px-8">
+                <div className="bg-background-secondary/85 shadow-2xl shadow-background-secondary/85 p-6 md:p-10 rounded-3xl flex flex-col md:flex-row gap-6">
+                    <aside className="w-full md:w-1/3">
+                        <EventSection event={data} />
+                    </aside>
+
+                    <main className="w-full md:w-2/3 overflow-hidden">
+                        <PaymentSlidesOrq />
+                    </main>
                 </div>
             </div>
         </div>

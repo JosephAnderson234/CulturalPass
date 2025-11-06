@@ -9,9 +9,7 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
     const pathname = usePathname();
 
     const handleSearch = useDebouncedCallback((term: string) => {
-
-        const params = new URLSearchParams(searchParams);
-
+        const params = new URLSearchParams(String(searchParams ?? ""));
         params.set('page', '1');
 
         if (term) {
@@ -23,9 +21,10 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
     }, 300);
 
     return (
-        <div className="relative flex items-center justify-center p-3 w-full">
+        <div className="relative flex items-center p-1 w-full max-w-lg mx-auto">
             <input
-                className="block w-full  rounded-3xl shadow-2xl xl pl-5 placeholder:text-[#bdbdbc] placeholder:font-semibold bg-bg-alternative text-black p-3 text-left"
+                aria-label={placeholder}
+                className="block w-full rounded-3xl shadow-sm pl-4 pr-12 placeholder:text-[#bdbdbc] placeholder:font-semibold bg-bg-alternative text-black py-2 text-left text-sm"
                 name='search'
                 placeholder={placeholder}
                 onChange={(e) => {
@@ -34,7 +33,7 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
                 defaultValue={searchParams.get('event')?.toString()}
             />
 
-            <SearchIcon className="absolute right-6 h-9 text-background-secondary" />
+            <SearchIcon className="absolute right-4 h-5 text-background-secondary pointer-events-none" />
 
         </div>
     );

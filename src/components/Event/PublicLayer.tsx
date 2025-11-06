@@ -12,7 +12,7 @@ export const PublicLayer = async () => {
     return (
         <div className='w-full max-w-7xl mx-auto pt-10'>
 
-            <div className='w-full'>
+            <div className='w-11/12 mx-auto lg:w-full'>
                 <MiniBanner />
             </div>
 

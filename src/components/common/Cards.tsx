@@ -155,7 +155,7 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
             </div>
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.imageUrl} alt={`image_${data.id}`} className="w-10/12 mx-auto rounded-xl" />
-            <h2 className="text-xl font-semibold my-2 text-center ">{data.title}</h2>
+            <Link href={`/event/${data.id}`} className="text-xl font-semibold my-2 text-center ">{data.title}</Link>
             {isEventEnded ? (
                 <span className="text-red-600 font-semibold text-center my-7">Evento finalizado</span>
             ) : isEventStarted ? (
@@ -199,8 +199,8 @@ export const TagsList = ({ tags }: { tags: string[] }) => {
 
 export const MiniBannerCard = ({ data }: { data: EventResponse }) => {
     return (
-        <div className=" rounded-3xl p-8 md:p-12 shadow-lg bg-gradient-to-br  from-[#d2a36d]  to-[#B87A50] flex flex-row">
-            <div className="w-2/3">
+        <div className=" rounded-3xl p-8 md:p-12 shadow-lg bg-gradient-to-br  from-[#d2a36d]  to-[#B87A50]  flex  flex-col md:flex-row">
+            <div className="w-full md:w-2/3">
                 <h2 className="text-2xl md:text-3xl xl:text-5xl font-bold mb-4 text-white">Descubre experiencias culturales únicas en el Centro Cultural Amador Ballumbrosio</h2>
                 <p className="text-white mb-6 text-xl ">Evento destacado: <span className="font-bold">{data.title}</span></p>
 
@@ -208,8 +208,8 @@ export const MiniBannerCard = ({ data }: { data: EventResponse }) => {
                     Ver evento
                 </Link>
             </div>
-            <div className="w-1/3">
-                <Image src={data.imageUrl} alt={`image_${data.id}`} width={400} height={200} className="mt-4 rounded-xl object-cover" />
+            <div className="w-full md:w-1/3">
+                <Image src={data.imageUrl} alt={`image_${data.id}`} width={400} height={200} className="mt-4 mx-auto rounded-xl object-cover" />
             </div>
 
         </div>
