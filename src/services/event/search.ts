@@ -9,7 +9,7 @@ export const findByTermPaginated = async (term: string, page: number, limit?: nu
 
     const params = new URLSearchParams();
     params.append("term", term);
-    params.append("pageSize", page.toString());
+    params.append("currentPage", page.toString());
     if (limit) {
         params.append("pageSize", limit.toString());
     }

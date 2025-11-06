@@ -10,7 +10,7 @@ const SearchSide = ({ placeholder }: { placeholder: string }) => {
 
     const handleSearch = useDebouncedCallback((term: string) => {
         const params = new URLSearchParams(String(searchParams ?? ""));
-        params.set('page', '1');
+        params.set('page', '0');
 
         if (term) {
             params.set('event', term);
