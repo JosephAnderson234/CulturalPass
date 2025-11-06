@@ -8,7 +8,7 @@ export const BasicButtonCart = ({ className, children , ...props }: ButtonHTMLAt
     return (
         <button
             {...props}
-            className={`px-3 py-2 rounded-md transition-all duration-300 bg-background-secondary text-white font-semibold border border-foreground/20 hover:bg-background-secondary/80 focus:outline-none focus:ring-2 focus:ring-foreground/50 ${className ?? ""}`.trim()}
+            className={`cursor-pointer px-3 py-2 w-full rounded-3xl transition-all duration-300 bg-background-secondary text-white font-semibold border border-foreground/20 hover:bg-background-secondary/80 focus:outline-none focus:ring-2 focus:ring-foreground/50 ${className ?? ""}`.trim()}
         >
             {children}
         </button>
