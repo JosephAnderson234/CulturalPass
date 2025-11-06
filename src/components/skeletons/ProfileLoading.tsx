@@ -2,17 +2,18 @@ import React from 'react';
 
 export default function ProfileLoading() {
   return (
-    <div style={{padding: 24, maxWidth: 720, margin: '0 auto'}}>
-      <div style={{display: 'flex', gap: 16, alignItems: 'center', marginBottom: 18}}>
-        <div style={{height: 96, width: 96, borderRadius: '50%', background: '#f0f0f0'}} />
-        <div style={{flex: 1}}>
-          <div style={{height: 20, width: '50%', background: '#efefef', borderRadius: 6, marginBottom: 8}} />
-          <div style={{height: 14, width: '30%', background: '#f3f3f3', borderRadius: 6}} />
+    <div className="p-6 max-w-3xl mx-auto bg-background rounded-md">
+      <div className="flex gap-4 items-center mb-4">
+        <div className="h-24 w-24 rounded-full bg-white/20 animate-pulse" />
+        <div className="flex-1">
+          <div className="h-5 w-1/2 rounded bg-white/20 animate-pulse mb-2" />
+          <div className="h-3 w-1/4 rounded bg-white/20 animate-pulse" />
         </div>
       </div>
-      <div style={{display: 'grid', gap: 12}}>
-        <div style={{height: 44, background: '#fafafa', borderRadius: 8}} />
-        <div style={{height: 44, background: '#fafafa', borderRadius: 8}} />
+
+      <div className="grid gap-3">
+        <div className="h-11 rounded bg-white/20 animate-pulse" />
+        <div className="h-11 rounded bg-white/20 animate-pulse" />
       </div>
     </div>
   );

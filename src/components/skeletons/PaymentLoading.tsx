@@ -2,11 +2,12 @@ import React from 'react';
 
 export default function PaymentLoading() {
   return (
-    <div style={{padding: 24, maxWidth: 720, margin: '0 auto'}}>
-      <div style={{height: 28, width: '45%', background: '#ededed', borderRadius: 6, marginBottom: 18}} />
-      <div style={{display: 'grid', gap: 12}}>
-        <div style={{height: 56, background: '#f6f6f6', borderRadius: 8}} />
-        <div style={{height: 240, background: '#f7f7f7', borderRadius: 8}} />
+    <div className="p-6 max-w-3xl mx-auto bg-background rounded-md">
+      <div className="h-7 w-2/5 rounded bg-white/30 animate-pulse mb-4" />
+
+      <div className="grid gap-3">
+        <div className="h-14 rounded bg-white/20 animate-pulse" />
+        <div className="h-60 rounded bg-white/20 animate-pulse" />
       </div>
     </div>
   );
