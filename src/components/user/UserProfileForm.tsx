@@ -10,7 +10,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
     const [isEditing, setIsEditing] = useState(false);
 
     return (
-        <form className="w-10/12 mx-auto p-5 bg-bg-alternative rounded-2xl m-5 ">
+        <form className="w-10/12 mx-auto p-5 bg-background-tertiary shadow-md rounded-2xl m-5 ">
             <h1 className="text-center my-2 font-bold text-xl">Perfil de Usuario</h1>
             <div className="flex flex-row p-3 gap-4">
                 <label htmlFor="">Nombres: </label>

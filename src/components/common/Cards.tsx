@@ -6,6 +6,7 @@ import Link from "next/link";
 import { EventType } from "@src/interfaces/event/enums";
 import dynamic from "next/dynamic";
 import Image from "next/image";
+import { useRouter } from "next/navigation";
 
 
 
@@ -120,7 +121,7 @@ export const TagsList = ({ tags }: { tags: string[] }) => {
     return (
         <div className="flex flex-row gap-2 flex-wrap my-2">
             {tags.map((tag, index) => (
-                <span key={index} className="bg-background-tertiary text-black font-bold px-3 py-1 rounded-full text-sm">
+                <span key={index} className="bg-background text-black font-bold px-3 py-1 rounded-full text-sm">
                     #{tag}
                 </span>
             ))}
@@ -145,6 +146,33 @@ export const MiniBannerCard = ({ data }: { data: EventResponse }) => {
                 <Image src={data.imageUrl} alt={`image_${data.id}`} width={400} height={200} className="mt-4 rounded-xl object-cover" />
             </div>
 
+        </div>
+    )
+}
+
+
+export const SmallEventItem = ({ data }: { data: EventResponse }) => {
+    const router = useRouter();
+    const isComingSoon = new Date(data.startDate).getTime() > Date.now();
+    const isEventEnded = new Date(data.endDate).getTime() < Date.now();
+    return (
+        <div className="bg-bg-alternative rounded-3xl my-6 w-full mx-auto border  border-background-secondary overflow-hidden shadow-md flex flex-col justify-between">
+            <div className="flex flex-row p-4">
+                <div className="w-2/5">
+                    <Image src={data.imageUrl} alt={`image_${data.id}`} width={400} height={200} className="mt-4 rounded-xl object-cover" />
+                </div>
+                <div className="w-3/5 flex flex-col items-center justify-center">
+                    <h3 className="text-xl font-semibold my-2 px-4">{data.title}</h3>
+                    <TagsList tags={data.tags} />
+                    {isComingSoon ? <TimeLeftCounterNoSSR startDate={data.startDate} className="px-4 mb-4" /> : <p className={`px-4 mb-4 font-semibold ${isEventEnded ? 'text-red-600' : 'text-green-600'}`}>El evento {isEventEnded ? 'ya ha terminado' : 'ya ha comenzado'}</p>}
+                </div>
+            </div>
+
+            <div>
+                <button onClick={() => router.push(`/myevents/${data.id}`)} disabled={isEventEnded} className={`w-full bg-background-secondary text-white font-semibold py-3 rounded-b-3xl hover:bg-primary-dark transition ${isEventEnded ? 'opacity-50 cursor-not-allowed' : 'cursor-pointer'}`}>
+                    Ver mi inscripción
+                </button>
+            </div>
         </div>
     )
 }

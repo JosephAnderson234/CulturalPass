@@ -18,7 +18,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
 
             </div>
             <div className="flex items-center justify-center">
-                <Link href={`/event/${event.id}`}>
+                <Link href={`/myevents/${event.id}`}>
                     <RightArrowIcon className="w-10 mx-2 text-background-secondary"/>
                 </Link>
             </div>
@@ -29,7 +29,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
 export default async function LatestEvents() {
     const events = await getLatestEvents();
     return (
-        <div className="w-10/12 mx-auto p-5 bg-bg-alternative rounded-2xl m-5">
+        <div className="w-10/12 mx-auto p-5 bg-background-tertiary shadow-md rounded-2xl m-5">
 
             <h2 className="text-xl font-bold mb-4 text-center">Eventos Recientes</h2>
 

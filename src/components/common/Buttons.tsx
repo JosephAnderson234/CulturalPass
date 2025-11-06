@@ -38,7 +38,7 @@ export const BackButton = () => {
     return (
         <button
             onClick={() => router.back()}
-            className=" my-3 text-background-little-1 text-base cursor-pointer hover:underline"
+            className=" mt-7 mb-4 text-background-little-1 text-base cursor-pointer hover:underline"
         >
             ← Volver
         </button>
