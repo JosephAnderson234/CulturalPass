@@ -1,11 +1,14 @@
 import { EventResponse } from "@src/interfaces/event/EventResponse";
 import { getLatestEvents } from "@src/services/user/getLatestEvents";
-import { TypeMiniCard, TimeLeftCounterNoSSR } from '@src/components/common/Cards';
+import { TypeMiniCard, TimeLeftCounterNoSSR, TimeToCloseEventNoSSR } from '@src/components/common/Cards';
 import { RightArrowIcon } from "@src/components/lib/icons";
 import Link from "next/link";
 
 
 const MiniItem = ({ event }: { event: EventResponse }) => {
+    const isEventStarted = new Date(event.startDate).getTime() <= Date.now();
+    const isEventEnded = new Date(event.endDate).getTime() < Date.now();
+
     return (
         <div className="border-2 border-background-secondary p-2 flex flex-row justify-between rounded-2xl">
             <div className="flex flex-col items-center justify-center min-w-24">
@@ -14,7 +17,13 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
             <div className="flex-col items-center">
                 <p className="text-lg text-center">{event.title}</p>
 
-                <TimeLeftCounterNoSSR startDate={event.startDate} className="flex my-1 text-sm justify-center" />
+                {isEventEnded ? (
+                    <span className="text-red-600 font-semibold my-7">Evento finalizado</span>
+                ) : isEventStarted ? (
+                    <TimeToCloseEventNoSSR endDate={event.endDate} className="flex my-1 text-sm justify-center" />
+                ) : (
+                    <TimeLeftCounterNoSSR startDate={event.startDate} className="flex my-1 text-sm justify-center" />
+                )}
 
             </div>
             <div className="flex items-center justify-center">

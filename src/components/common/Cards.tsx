@@ -84,10 +84,70 @@ export const TimeLeftCounter = ({
     );
 };
 
+export const TimeToCloseEvent = ({
+    endDate,
+    className,
+}: {
+    endDate: string;
+    className?: string;
+}) => {
+    const calculateTimeLeft = useCallback(() => {
+        const eventMs = new Date(endDate).getTime();
+        const nowMs = Date.now();
+        let diff = eventMs - nowMs;
+        if (diff <= 0) {
+            return { days: 0, hours: 0, minutes: 0, seconds: 0, totalMs: 0 };
+        }
+        const days = Math.floor(diff / 86_400_000); // 24*60*60*1000
+        diff -= days * 86_400_000;
+        const hours = Math.floor(diff / 3_600_000);
+        diff -= hours * 3_600_000;
+        const minutes = Math.floor(diff / 60_000);
+        diff -= minutes * 60_000;
+        const seconds = Math.floor(diff / 1_000);
+        return { days, hours, minutes, seconds, totalMs: eventMs - nowMs };
+    }, [endDate]);
+    const [timeLeft, setTimeLeft] = useState<{
+        days: number;
+        hours: number;
+        minutes: number;
+        seconds: number;
+        totalMs: number;
+    } | null>(null);
+    useEffect(() => {
+        const tick = () => setTimeLeft(calculateTimeLeft());
+        tick();
+        const id = setInterval(tick, 1000);
+        return () => clearInterval(id);
+    }, [calculateTimeLeft]);
+    if (!timeLeft) {
+        return (
+            <div className={className ?? "flex flex-col items-center my-4"}>
+                <p>Termina en: </p>
+                <p>—</p>
+            </div>
+        );
+    }
+    const { days, hours, minutes, seconds, totalMs } = timeLeft;
+    const parts: string[] = [];
+    if (days > 0) parts.push(`${days}D`);
+    if (hours > 0 || days > 0) parts.push(`${hours}H`);
+    if (minutes > 0 || hours > 0 || days > 0) parts.push(`${minutes}m`);
+    if (days === 0 && hours === 0) parts.push(`${seconds}s`);
+    const display = totalMs > 0 ? parts.join(" ") : "0m";
+    return (
+        <div className={className ?? "flex flex-col items-center my-4"}>
+            <p className="mr-1">Termina en:</p>
+            <p>{display}</p>
+        </div>
+    );
+}
+
 export const TimeLeftCounterNoSSR = dynamic(() => Promise.resolve(TimeLeftCounter), { ssr: false });
-
+export const TimeToCloseEventNoSSR = dynamic(() => Promise.resolve(TimeToCloseEvent), { ssr: false });
 export const EventCard = ({ data }: { data: EventResponse }) => {
-
+    const isEventStarted = new Date(data.startDate).getTime() <= Date.now();
+    const isEventEnded = new Date(data.endDate).getTime() < Date.now();
     return (
         <div className="border-2 p-4 rounded-3xl border-background-secondary flex flex-col justify-between w-full overflow-y-hidden group relative min-w-60">
             <div className="flex w-11/12 mx-auto my-1">
@@ -96,7 +156,13 @@ export const EventCard = ({ data }: { data: EventResponse }) => {
             {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={data.imageUrl} alt={`image_${data.id}`} className="w-10/12 mx-auto rounded-xl" />
             <h2 className="text-xl font-semibold my-2 text-center ">{data.title}</h2>
-            <TimeLeftCounterNoSSR startDate={data.startDate} />
+            {isEventEnded ? (
+                <span className="text-red-600 font-semibold text-center my-7">Evento finalizado</span>
+            ) : isEventStarted ? (
+                <TimeToCloseEventNoSSR endDate={data.endDate} />
+            ) : (
+                <TimeLeftCounterNoSSR startDate={data.startDate} />
+            )}
             <div className="bg-background-secondary text-white absolute -bottom-24 left-0 w-full text-center rounded-b-3xl border-background-secondary group-hover:-bottom-1 transition-all duration-300">
                 <Link href={`/event/${data.id}`} className="block py-7">Ver evento</Link>
             </div>

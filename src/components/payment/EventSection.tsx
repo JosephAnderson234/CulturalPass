@@ -1,10 +1,12 @@
 "use client";
 
 import { EventResponse } from "@src/interfaces/event/EventResponse";
-import { TimeLeftCounterNoSSR, TypeMiniCard } from "../common/Cards";
+import { TimeLeftCounterNoSSR, TimeToCloseEventNoSSR,  TypeMiniCard } from "../common/Cards";
 import Image from 'next/image';
 
 export const EventSection = ({event} : {event: EventResponse}) => {
+    const isEventStarted = new Date(event.startDate).getTime() <= Date.now();
+    const isEventEnded = new Date(event.endDate).getTime() < Date.now();
     return (
         <section aria-labelledby={`event-${event.id}-title`} className="max-w-4xl mx-auto p-6 bg-background rounded-2xl shadow-md">
             <div className="flex flex-col ">
@@ -28,7 +30,13 @@ export const EventSection = ({event} : {event: EventResponse}) => {
                         </div>
 
                         <div className=" text-sm text-gray-700">
-                            <TimeLeftCounterNoSSR startDate={event.startDate} />
+                            {isEventEnded ? (
+                                <span className="text-red-600 font-semibold my-7">Evento finalizado</span>
+                            ) : isEventStarted ? (
+                                <TimeToCloseEventNoSSR endDate={event.endDate} />
+                            ) : (
+                                <TimeLeftCounterNoSSR startDate={event.startDate} />
+                            )}
                         </div>
                         <div className="mt-4">
                             <div className="flex flex-wrap gap-2">
