@@ -2,6 +2,7 @@ import { PaginatedResponse } from "@src/interfaces/common/PaginatedResponse";
 import { EventResponse } from "@src/interfaces/event/EventResponse";
 
 import { EventCard } from "../common/Cards";
+import PaginationNavegation from "../common/PaginationNavegation";
 
 export default function ResultEvent({ event }: { event: PaginatedResponse<EventResponse> }) {
     
@@ -18,7 +19,7 @@ export default function ResultEvent({ event }: { event: PaginatedResponse<EventR
                 ))
             )}
             </div>
-            
+            <PaginationNavegation page={event.currentPage} size={event.size} totalPages={event.totalPages} />
         </div>
     )
 }
