@@ -10,14 +10,14 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
     const isEventEnded = new Date(event.endDate).getTime() < Date.now();
 
     return (
-        <div className="border-2 border-background-secondary p-3 rounded-2xl flex flex-col sm:flex-row items-start sm:items-center gap-3">
+        <div className="border-2 border-background-secondary p-3 rounded-2xl flex flex-col sm:flex-row sm:justify-between items-start sm:items-center gap-3">
             <div className="flex-shrink-0">
                 <TypeMiniCard type={event.type} />
             </div>
 
-            <div className="flex-1">
+            <div className="flex flex-row gap-8 sm:flex-col items-center">
                 <p className="text-base sm:text-lg font-medium">{event.title}</p>
-                <div className="mt-2">
+                <div className="mt-2 mx-auto">
                     {isEventEnded ? (
                         <span className="text-red-600 font-semibold">Evento finalizado</span>
                     ) : isEventStarted ? (
@@ -28,7 +28,7 @@ const MiniItem = ({ event }: { event: EventResponse }) => {
                 </div>
             </div>
 
-            <div className="flex-shrink-0">
+            <div className="flex flex-col mx-auto">
                 <Link href={`/myevents/${event.id}`} className="inline-flex items-center justify-center p-2">
                     <RightArrowIcon className=" w-8 h-8 text-background-secondary" />
                 </Link>

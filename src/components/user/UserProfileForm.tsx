@@ -29,7 +29,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
                 <input type="text" defaultValue={data.cellphone || ''} disabled={!isEditing} />
             </div>
 
-        {
+{/*         {
             isEditing ? 
             <div className="flex justify-center mt-4">
                 <button 
@@ -57,7 +57,7 @@ export const ProfileForm = ({ data }: { data: UserResponse }) => {
                     Editar Perfil
                 </button>
             </div>
-        }
+        } */}
 
         </form>
     );
